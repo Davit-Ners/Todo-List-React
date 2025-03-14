@@ -1,11 +1,15 @@
 import { useId, useState } from "react";
 
-export default function TodoForm() {
+export default function TodoForm({ onAction = () => {} }) {
     
     const inputId = useId();
     const [ name, setName ] = useState('');
     const [ desc, setDesc ] = useState('');
     const [ priority, setPriority ] = useState('mid');
+
+    const sendForm = () => {
+        onAction(name, desc, priority);
+    }
     
     return (
         <div className="todo-form">
@@ -31,7 +35,7 @@ export default function TodoForm() {
                     </select>
                 </div>
 
-                <button>Ajouter</button>
+                <button onClick={sendForm}>Ajouter</button>
 
             </div>
         </div>
