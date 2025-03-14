@@ -1,4 +1,6 @@
 import { useId, useState } from "react";
+import style from './todo-form.module.css';
+import clsx from "clsx";
 
 export default function TodoForm({ onAction = () => {} }) {
     
@@ -6,8 +8,17 @@ export default function TodoForm({ onAction = () => {} }) {
     const [ name, setName ] = useState('');
     const [ desc, setDesc ] = useState('');
     const [ priority, setPriority ] = useState('mid');
+    const [ must, setMust ] = useState(false);
 
     const sendForm = () => {
+        if (!name.trim()) {
+            setMust(true);
+            return;
+        }
+        setMust(false);
+        setName('');
+        setPriority('mid');
+        setDesc('');
         onAction(name, desc, priority);
     }
     
@@ -17,8 +28,8 @@ export default function TodoForm({ onAction = () => {} }) {
             <div className="form-container">
 
                 <div className="input-container">
-                    <label htmlFor={inputId + '-name'}>Nom</label>
-                    <input type="text" id={inputId + '-name'} value={name} onChange={(e) => setName(e.target.value)} />
+                    <label className={clsx(must && style['must'])} htmlFor={inputId + '-name'}>Nom</label>
+                    <input required type="text" id={inputId + '-name'} value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
                 <div className="input-container">
