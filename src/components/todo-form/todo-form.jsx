@@ -1,8 +1,11 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 
 export default function TodoForm() {
     
     const inputId = useId();
+    const [ name, setName ] = useState('');
+    const [ desc, setDesc ] = useState('');
+    const [ priority, setPriority ] = useState('mid');
     
     return (
         <div className="todo-form">
@@ -11,17 +14,17 @@ export default function TodoForm() {
 
                 <div className="input-container">
                     <label htmlFor={inputId + '-name'}>Nom</label>
-                    <input type="text" id={inputId + '-name'} />
+                    <input type="text" id={inputId + '-name'} value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
                 <div className="input-container">
                     <label htmlFor={inputId + '-desc'}>Description</label>
-                    <textarea id={inputId + '-desc'}></textarea>
+                    <textarea id={inputId + '-desc'} value={desc} onChange={(e) => setDesc(e.target.value)}></textarea>
                 </div>
 
                 <div className="input-container">
-                    <label htmlFor={inputId + '-priority'}>Nom</label>
-                    <select id={inputId + '-priority'}>
+                    <label htmlFor={inputId + '-priority'}>Priorité</label>
+                    <select id={inputId + '-priority'} value={priority} onChange={(e) => setPriority(e.target.value)}>
                         <option value="low">Basse</option>
                         <option value="mid">Normal</option>
                         <option value="high">Urgent</option>
