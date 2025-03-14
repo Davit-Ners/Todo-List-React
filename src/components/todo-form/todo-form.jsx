@@ -23,21 +23,21 @@ export default function TodoForm({ onAction = () => {} }) {
     }
     
     return (
-        <div className="todo-form">
+        <div className={style["todo-form"]}>
             <h2>Ajouter une nouvelle tache</h2>
-            <div className="form-container">
+            <div className={style["form-container"]}>
 
-                <div className="input-container">
+                <div className={style['input-container']}>
                     <label className={clsx(must && style['must'])} htmlFor={inputId + '-name'}>Nom</label>
                     <input required type="text" id={inputId + '-name'} value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
-                <div className="input-container">
+                <div className={style['input-container']}>
                     <label htmlFor={inputId + '-desc'}>Description</label>
                     <textarea id={inputId + '-desc'} value={desc} onChange={(e) => setDesc(e.target.value)}></textarea>
                 </div>
 
-                <div className="input-container">
+                <div className={style['input-container']}>
                     <label htmlFor={inputId + '-priority'}>Priorité</label>
                     <select id={inputId + '-priority'} value={priority} onChange={(e) => setPriority(e.target.value)}>
                         <option value="low">Basse</option>
