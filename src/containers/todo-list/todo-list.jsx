@@ -11,12 +11,18 @@ export default function TodoList() {
 
     const onSubmit = (name, desc, priority) => {
         setTaskId(lastTaskId + 1);
-        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority }]);
+        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false }]);
     }
 
     const onDelete = (id) => {
         const index = data.findIndex(t => t.id == id);
         setData(val => val.toSpliced(index, 1));
+    }
+
+    const onFinish = (id) => {
+        const index = data.findIndex(t => t.id == id);
+        data[index].done = true;
+        setData([...data]);
     }
     
     return (
@@ -25,7 +31,7 @@ export default function TodoList() {
 
             <div>
                 <h2>Liste des taches</h2>
-                {data.map(task => <Task key={task.id} {...task} onDelete={onDelete} />)}
+                {data.map(task => <Task key={task.id} {...task} onDelete={onDelete} onFinish={onFinish}/>)}
             </div>
         </div>
     );
