@@ -3,6 +3,7 @@ import Task from "../../components/task/task.jsx";
 import TodoForm from "../../components/todo-form/todo-form.jsx";
 import json from '../../data/todo.json'
 import style from './todo-list.module.css';
+import Filter from "../../components/filter/filter.jsx";
 
 export default function TodoList() {
 
@@ -24,6 +25,12 @@ export default function TodoList() {
         data[index].done = true;
         setData([...data]);
     }
+
+    const onFilter = (filter) => {
+        if (filter === 'Urgent') {
+            //TODO ICI AVEC IF ???
+        }
+    }
     
     return (
         <div className={style['todo-list']}>
@@ -33,6 +40,8 @@ export default function TodoList() {
                 <h2>Liste des taches</h2>
                 {data.map(task => <Task key={task.id} {...task} onDelete={onDelete} onFinish={onFinish}/>)}
             </div>
+
+            <Filter data={data}/>
         </div>
     );
 };
