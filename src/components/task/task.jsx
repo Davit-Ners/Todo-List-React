@@ -1,4 +1,9 @@
-export default function Task({ name, desc = '', priority }) {
+export default function Task({ id, name, desc = '', priority, onDelete = () => {} }) {
+
+    const handleDelete = () => {
+        onDelete(id)      
+    };
+    
     return (
         <div className="task">
             <div className="txt">
@@ -7,7 +12,7 @@ export default function Task({ name, desc = '', priority }) {
             </div>
             <div className="task-btn">
                 <button>Terminer</button>
-                <button>Supprimer</button>
+                <button onClick={handleDelete}>Supprimer</button>
             </div>
         </div>
     );
