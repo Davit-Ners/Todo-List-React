@@ -25,12 +25,6 @@ export default function TodoList() {
         data[index].done = true;
         setData([...data]);
     }
-
-    const onFilter = (filter) => {
-        if (filter === 'Urgent') {
-            //TODO ICI AVEC IF ???
-        }
-    }
     
     return (
         <div className={style['todo-list']}>
