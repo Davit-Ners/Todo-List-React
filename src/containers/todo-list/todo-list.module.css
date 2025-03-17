@@ -1,5 +1,84 @@
 .todo-list {
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 5em;
+    justify-content: center;
+    gap: 3em;
+    width: 100%;
+    padding: 2em;
+    flex: 1
+}
+
+.todo-form {
+    flex: 1;
+    max-width: 300px;
+}
+
+.task-list {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1.5em;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-list h2 {
+    width: 100%;
+    text-align: left;
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 1em;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5em;
+}
+
+
+/* Responsive Design */
+
+/* Pour les écrans de taille moyenne et plus petits (tablettes et mobiles) */
+@media (max-width: 1206px) {
+    .todo-list {
+        flex-direction: column;
+        gap: 2em;  /* Espacement entre les éléments réduit pour s'adapter à l'écran */
+    }
+
+    .todo-form {
+        max-width: 100%;  /* Le formulaire prend toute la largeur disponible */
+    }
+
+    .task-list {
+        flex: 1;  /* La task list occupe moins d'espace horizontal */
+        padding: 1em;
+    }
+
+    .task-list h2 {
+        font-size: 1.2em;  /* Réduction de la taille du titre */
+    }
+}
+
+/* Pour les petits écrans mobiles */
+@media (max-width: 480px) {
+    .todo-list {
+        padding: 1.5em;  /* Réduction du padding pour les petits écrans */
+    }
+
+    .todo-form {
+        max-width: 100%;
+        padding: 1em;  /* Padding ajusté pour mieux utiliser l'espace */
+    }
+
+    .task-list {
+        padding: 1em;
+    }
+
+    .task-list h2 {
+        font-size: 1.1em;  /* Réduction supplémentaire de la taille du titre */
+    }
 }

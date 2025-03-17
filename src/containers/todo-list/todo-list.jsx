@@ -12,6 +12,8 @@ export default function TodoList() {
     const [ modify, setModify ] = useState(false);
     const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid', newLimitDate: ''});
 
+    console.log(data);
+
     const onSubmit = (id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate) => {
         if (modify) {
             console.log(id, data[0].id);
@@ -55,6 +57,11 @@ export default function TodoList() {
         setModify(true);
         setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority, newLimitDate: dateLimit});
     }
+    
+    const onClose = () => {
+        setModify(false);
+    }
+
     const filteredData = data.filter(task => {
         if (filter === 'done') return task.done;
         if (filter === 'notDone') return !task.done;
@@ -65,9 +72,9 @@ export default function TodoList() {
     return (
         <div className={style['todo-list']}>
             <TodoForm onAction={onSubmit}/>
-            {modify && <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>}
+            {modify && <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask} onClose={onClose}/>}
 
-            <div>
+            <div className={style['task-list']}>
                 <h2>{data.length > 0 ? 'Liste des taches' : "Vous n'avez aucune tache en cours."}</h2>
 
                 {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish} onReset={onReset}/>)}

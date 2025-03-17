@@ -1,29 +1,184 @@
-.must {
-    color: red;
-}
-
 .todo-form {
     display: flex;
     flex-direction: column;
-    gap: 1em;
-    border: 2px solid black;
+    gap: 1.5em;
+    border: 2px solid #333;
+    padding: 2em;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    position: relative;
+}
+
+.todo-form h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #222;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
+    gap: 1.5em;
 }
 
 .input-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.input-container label {
+    font-weight: bold;
+    color: #555;
+}
+
+.input-container input,
+.input-container textarea,
+.input-container select {
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-container input:focus,
+.input-container textarea:focus,
+.input-container select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.input-container textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.input-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5em;
+}
+
+.todo-form button {
+    background: #007bff;
+    color: white;
+    padding: 0.8em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.todo-form button:hover {
+    background: #0056b3;
+}
+
+.must {
+    color: red;
+    font-weight: bold;
 }
 
 .modify {
-    background-color: rgb(61, 60, 60);
+    background-color: snow;
     color: snow;
     position: absolute;
-    right: 10%;
-    top: 35%;
+    right: 42%;
+    top: 20%;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.check {
+    display: flex;
+    justify-content: space-between;
+}
+
+.close {
+    color: black;
+    position: absolute;
+    top: 5px;
+    right: 3%;
+    border: 2px solid black;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 5px;
+
+    background-color: snow;
+    color: black;
+
+    transition: 0.15s ease-in-out;
+
+    &:hover {
+        background-color: gray;
+        color: snow;
+        cursor: pointer;
+        transform: scale(1.15);
+    }
+}
+
+
+/* Responsive Design */
+
+/* Pour les écrans de taille moyenne et plus petits (tablettes et mobiles) */
+@media (max-width: 768px) {
+    .todo-form {
+        padding: 1.5em;
+        max-width: 100%;
+    }
+
+    .todo-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .input-container input,
+    .input-container textarea,
+    .input-container select {
+        font-size: 0.9rem;
+        padding: 0.6em;
+    }
+
+    .todo-form button {
+        font-size: 0.9rem;
+        padding: 0.7em;
+    }
+}
+
+/* Pour les petits écrans mobiles */
+@media (max-width: 480px) {
+    .todo-form {
+        padding: 1.2em;
+        max-width: 100%;
+    }
+
+    .todo-form h2 {
+        font-size: 1.1rem;
+    }
+
+    .input-container input,
+    .input-container textarea,
+    .input-container select {
+        font-size: 0.9rem;
+        padding: 0.5em;
+    }
+
+    .todo-form button {
+        font-size: 0.9rem;
+        padding: 0.6em;
+    }
+
+    .check {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .close {
+        top: 10px;
+        right: 5%;
+    }
 }

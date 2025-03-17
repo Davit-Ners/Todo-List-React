@@ -3,6 +3,14 @@
     justify-content: space-between;
     width: 500px;
     border: 2px solid black;
+    padding: 1em;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.task:hover {
+    background-color: #eaeaea;
 }
 
 .task-btn {
@@ -10,6 +18,24 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 0.5em;
+}
+
+.task-btn button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.task-btn button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.task-btn button:not(:disabled):hover {
+    opacity: 0.8;
 }
 
 .is-done {
@@ -23,6 +49,8 @@
 
 .urgent {
     color: red;
+    font-weight: bold;
+    margin-left: 0.5em;
 }
 
 .failed {
@@ -33,4 +61,47 @@
         #d80606 20px,
         #a5a4a3 40px
     );
+}
+
+/* Responsive Design */
+
+@media (max-width: 1120px) {
+    .task {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .task {
+        width: 100%;
+        gap: 1em;
+    }
+
+    .task-btn {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .task-btn button {
+        width: 48%;
+        padding: 0.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .task {
+        flex-direction: column;
+        width: 100%;
+        padding: 0.8em;
+    }
+
+    .task-btn {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .task-btn button {
+        width: 30%;
+        font-size: 0.6rem;
+    }
 }
