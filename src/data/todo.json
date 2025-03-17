@@ -4,7 +4,7 @@
             "id": 1,
             "name": "Vaisselle",
             "desc": "Faire la vaisselle",
-            "priority": "high",
+            "priority": "mid",
             "done": false
         },
         {
@@ -13,6 +13,13 @@
             "desc": "Sortir les poubelles",
             "priority": "mid",
             "done": true
+        },
+        {
+            "id": 3,
+            "name": "Code",
+            "desc": "Continuer application React.",
+            "priority": "high",
+            "done": false
         }
     ],
     "lastId": 2
