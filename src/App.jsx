@@ -10,8 +10,11 @@ function App() {
 
   return (
     <>
+    <div className="page-container">
       <Header />
       <TodoList />
+      <footer></footer>
+    </div>
     </>
   )
 }
