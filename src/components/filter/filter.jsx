@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function Filter({ data, onFilter = () => {}} ) {
 
-    const [ filter, setFilter ] = useState('done');
+    const [ filter, setFilter ] = useState('all');
 
     const onAction = () => {
         onFilter(filter);
