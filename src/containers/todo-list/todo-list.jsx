@@ -55,7 +55,8 @@ export default function TodoList() {
     
     return (
         <div className={style['todo-list']}>
-            <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>
+            <TodoForm onAction={onSubmit}/>
+            {modify && <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>}
 
             <div>
                 <h2>Liste des taches</h2>
