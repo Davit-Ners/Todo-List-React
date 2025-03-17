@@ -54,8 +54,10 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
                 </div>
 
                 <div className={style['input-container']}>
-                    <label htmlFor={inputId + '-date'}>Date limite</label>
-                    <input type="checkbox" checked={hasLimitDate} value={hasLimitDate} onChange={() => setHasLimitDate(!hasLimitDate)} id={inputId + '-date'} />
+                    <div className={style['check']}>
+                        <label htmlFor={inputId + '-date'}>Date limite</label>
+                        <input type="checkbox" checked={hasLimitDate} value={hasLimitDate} onChange={() => setHasLimitDate(!hasLimitDate)} id={inputId + '-date'} />
+                    </div>
                     {hasLimitDate && <input type="datetime-local" id={inputId + '-date'} value={limitDate} onChange={(e => setLimitDate(e.target.value))}/>}
                 </div>
 

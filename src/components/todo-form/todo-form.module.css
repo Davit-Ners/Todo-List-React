@@ -7,17 +7,48 @@
     flex-direction: column;
     gap: 1em;
     border: 2px solid black;
+    padding: 2em;
+    background-color: snow;
+
+    color: rgb(70, 67, 67);
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
+    gap: 2em;
+
+    button {
+        width: 30%;
+        height: 30px;
+        margin: auto;
+
+        background-color: rgb(31, 199, 199);
+        border-radius: 10px;
+
+        transition: 0.1s ease-in-out;
+
+        &:hover {
+            background-color: rgb(13, 92, 138);
+            transform: scale(1.1);
+            color: snow;
+        }
+    }
 }
 
 .input-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    width: 80%;
+    gap: 0.5em;
+}
+
+.check {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
 }
 
 .modify {
