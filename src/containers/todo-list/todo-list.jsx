@@ -11,22 +11,23 @@ export default function TodoList() {
     const [ lastTaskId, setTaskId ] = useState(json.lastId);
     const [ filter, setFilter ] = useState('all');
     const [ modify, setModify ] = useState(false);
-    const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid'});
+    const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid', newLimitDate: ''});
 
-    const onSubmit = (id, name, desc, priority, modify) => {
+    const onSubmit = (id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate) => {
         if (modify) {
             setData((value) => 
                 value.map(t => 
                     t.id === id 
-                        ? { ...t, id, name, desc, priority }
+                        ? { ...t, id, name, desc, priority, dateLimit: new Date(limitDate).getTime() }
                         : t
                 )
             );
+            console.log(data);
             setModify(false);
             return;
         }
-        setTaskId(lastTaskId + 1);
-        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false }]);
+        setTaskId((id) => id + 1);
+        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false, createdAt, dateLimit: hasLimitDate ? new Date(limitDate).getTime() : "" }]);
     }
 
     const onDelete = (id) => {
@@ -48,9 +49,9 @@ export default function TodoList() {
     const onFilter = (filter) => {
         setFilter(filter);
     }
-    const onModify = (id, name, desc, priority) => {
+    const onModify = (id, name, desc, priority, dateLimit) => {
         setModify(true);
-        setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority});
+        setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority, newLimitDate: dateLimit});
     }
     const filteredData = data.filter(task => {
         if (filter === 'done') return task.done;
@@ -65,7 +66,7 @@ export default function TodoList() {
             {modify && <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>}
 
             <div>
-                <h2>Liste des taches</h2>
+                <h2>{data.length > 0 ? 'Liste des taches' : "Vous n'avez aucune tache en cours."}</h2>
 
                 {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish} onReset={onReset}/>)}
             </div>
