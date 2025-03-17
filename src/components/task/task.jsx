@@ -21,7 +21,7 @@ export default function Task({ id, name, desc = '', priority, done, failed = fal
     }
 
     const handleModify = () => {
-        onModify(id, name, desc, priority);
+        onModify(id, name, desc, priority, dateLimit);
     }
 
     const handleReset = () => {

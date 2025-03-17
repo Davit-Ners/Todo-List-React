@@ -11,17 +11,18 @@ export default function TodoList() {
     const [ lastTaskId, setTaskId ] = useState(json.lastId);
     const [ filter, setFilter ] = useState('all');
     const [ modify, setModify ] = useState(false);
-    const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid'});
+    const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid', newLimitDate: ''});
 
     const onSubmit = (id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate) => {
         if (modify) {
             setData((value) => 
                 value.map(t => 
                     t.id === id 
-                        ? { ...t, id, name, desc, priority }
+                        ? { ...t, id, name, desc, priority, dateLimit: new Date(limitDate).getTime() }
                         : t
                 )
             );
+            console.log(data);
             setModify(false);
             return;
         }
@@ -48,9 +49,9 @@ export default function TodoList() {
     const onFilter = (filter) => {
         setFilter(filter);
     }
-    const onModify = (id, name, desc, priority) => {
+    const onModify = (id, name, desc, priority, dateLimit) => {
         setModify(true);
-        setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority});
+        setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority, newLimitDate: dateLimit});
     }
     const filteredData = data.filter(task => {
         if (filter === 'done') return task.done;

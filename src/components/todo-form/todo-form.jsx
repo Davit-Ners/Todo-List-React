@@ -2,7 +2,7 @@ import { useId, useState, useEffect } from "react";
 import style from './todo-form.module.css';
 import clsx from "clsx";
 
-export default function TodoForm({ onAction = () => {}, modify = false, id, newName, newDesc, newPriority }) {
+export default function TodoForm({ onAction = () => {}, modify = false, id, newName, newDesc, newPriority, newLimitDate }) {
     
     const inputId = useId();
     const [ name, setName ] = useState('');
@@ -10,15 +10,19 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
     const [ priority, setPriority ] = useState('mid');
     const [ limitDate, setLimitDate ] = useState(new Date().toISOString());
     const [ must, setMust ] = useState(false);
-    const [ hasLimitDate, setHasLimitDate ] = useState(false);
+    const [ hasLimitDate, setHasLimitDate ] = newLimitDate ? useState(true) : useState(false);
 
     useEffect(() => {
         if (modify) {
             setName(newName || '');
             setDesc(newDesc || '');
             setPriority(newPriority || 'mid');
+            if (newLimitDate) {
+                setHasLimitDate(true);
+                setLimitDate(new Date(parseInt(newLimitDate)).toISOString().slice(0, 19));
+            }
         }
-    }, [modify, newName, newDesc, newPriority]);
+    }, [modify, newName, newDesc, newPriority, newLimitDate]);
 
     const sendForm = () => {
         if (!name.trim()) {
@@ -30,6 +34,7 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
         setName('');
         setPriority('mid');
         setDesc('');
+        console.log(limitDate);
         onAction(id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate);
     }
     
@@ -50,8 +55,8 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
 
                 <div className={style['input-container']}>
                     <label htmlFor={inputId + '-date'}>Date limite</label>
-                    <input type="checkbox" value={hasLimitDate} onChange={() => setHasLimitDate(!hasLimitDate)} id="" />
-                    {hasLimitDate && <input type="datetime-local" id="" value={limitDate} onChange={(e => setLimitDate(e.target.value))}/>}
+                    <input type="checkbox" checked={hasLimitDate} value={hasLimitDate} onChange={() => setHasLimitDate(!hasLimitDate)} id={inputId + '-date'} />
+                    {hasLimitDate && <input type="datetime-local" id={inputId + '-date'} value={limitDate} onChange={(e => setLimitDate(e.target.value))}/>}
                 </div>
 
                 <div className={style['input-container']}>
