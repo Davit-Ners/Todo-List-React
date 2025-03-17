@@ -39,6 +39,12 @@ export default function TodoList() {
         setData([...data]);
     }
 
+    const onReset = (id) => {
+        const index = data.findIndex(t => t.id == id);
+        data[index].done = false;
+        setData([...data]);
+    }
+
     const onFilter = (filter) => {
         setFilter(filter);
     }
@@ -61,7 +67,7 @@ export default function TodoList() {
             <div>
                 <h2>Liste des taches</h2>
 
-                {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish}/>)}
+                {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish} onReset={onReset}/>)}
             </div>
 
             <Filter onFilter={onFilter}/>
