@@ -2,7 +2,7 @@ import { useId, useState, useEffect } from "react";
 import style from './todo-form.module.css';
 import clsx from "clsx";
 
-export default function TodoForm({ onAction = () => {}, modify = false, id, newName, newDesc, newPriority, newLimitDate }) {
+export default function TodoForm({ onAction = () => {}, modify = false, id, newName, newDesc, newPriority, newLimitDate, onClose = () => {} }) {
     
     const inputId = useId();
     const [ name, setName ] = useState('');
@@ -24,6 +24,10 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
         }
     }, [modify, newName, newDesc, newPriority, newLimitDate]);
 
+    const handleClose = () => {
+        onClose();
+    }
+
     const sendForm = () => {
         if (!name.trim()) {
             setMust(true);
@@ -40,6 +44,7 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
     
     return (
         <div className={clsx(style["todo-form"], modify && style["modify"])}>
+            {modify && <div onClick={handleClose} className={style['close']}>X</div>}
             <h2>{modify ? 'Modifier la tache' : 'Ajouter une nouvelle tache'}</h2>
             <div className={style["form-container"]}>
 

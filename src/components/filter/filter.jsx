@@ -1,4 +1,5 @@
 import { useState } from "react";
+import style from './filter.module.css';
 
 export default function Filter({ data, onFilter = () => {}} ) {
 
@@ -9,7 +10,7 @@ export default function Filter({ data, onFilter = () => {}} ) {
     }
     
     return (
-        <div className="filter">
+        <div className={style['filter']}>
             <select id="filter" value={filter} onChange={(e) => setFilter(e.target.value)}>
                 <option value="all">Aucun filtre</option>
                 <option value="notDone">En cours</option>
