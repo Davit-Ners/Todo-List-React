@@ -18,12 +18,19 @@
         #7a7a79 0px,
         #7a7a79 20px,
         #a5a4a3 20px,
-        #a5a4a3 40px
-);
-
-
+        #a5a4a3 40px);
 }
 
 .urgent {
     color: red;
+}
+
+.failed {
+    background: repeating-linear-gradient(
+        -45deg,
+        #d80606 0px,
+        #7a7a79 20px,
+        #d80606 20px,
+        #a5a4a3 40px
+    );
 }

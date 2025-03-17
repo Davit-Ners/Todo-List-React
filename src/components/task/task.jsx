@@ -7,7 +7,10 @@ export default function Task({ id, name, desc = '', priority, done, failed = fal
 
     const formateCreateDate = new Date(parseInt(createdAt));
     const formatLimitDate = dateLimit && new Date(parseInt(dateLimit));
-    console.log(dateLimit);
+
+    if (formatLimitDate && formatLimitDate < new Date()) {
+        failed = true;
+    }
 
     const handleDelete = () => {
         onDelete(id)      

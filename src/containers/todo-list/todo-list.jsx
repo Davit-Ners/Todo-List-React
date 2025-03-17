@@ -13,7 +13,7 @@ export default function TodoList() {
     const [ modify, setModify ] = useState(false);
     const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid'});
 
-    const onSubmit = (id, name, desc, priority, modify) => {
+    const onSubmit = (id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate) => {
         if (modify) {
             setData((value) => 
                 value.map(t => 
@@ -25,8 +25,8 @@ export default function TodoList() {
             setModify(false);
             return;
         }
-        setTaskId(lastTaskId + 1);
-        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false }]);
+        setTaskId((id) => id + 1);
+        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false, createdAt, dateLimit: hasLimitDate ? new Date(limitDate).getTime() : "" }]);
     }
 
     const onDelete = (id) => {

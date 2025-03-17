@@ -8,7 +8,9 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
     const [ name, setName ] = useState('');
     const [ desc, setDesc ] = useState('');
     const [ priority, setPriority ] = useState('mid');
+    const [ limitDate, setLimitDate ] = useState(new Date().toISOString());
     const [ must, setMust ] = useState(false);
+    const [ hasLimitDate, setHasLimitDate ] = useState(false);
 
     useEffect(() => {
         if (modify) {
@@ -23,11 +25,12 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
             setMust(true);
             return;
         }
+        const createdAt = new Date().getTime();
         setMust(false);
         setName('');
         setPriority('mid');
         setDesc('');
-        onAction(id, name, desc, priority, modify);
+        onAction(id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate);
     }
     
     return (
@@ -43,6 +46,12 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
                 <div className={style['input-container']}>
                     <label htmlFor={inputId + '-desc'}>Description</label>
                     <textarea id={inputId + '-desc'} value={desc} onChange={(e) => setDesc(e.target.value)}></textarea>
+                </div>
+
+                <div className={style['input-container']}>
+                    <label htmlFor={inputId + '-date'}>Date limite</label>
+                    <input type="checkbox" value={hasLimitDate} onChange={() => setHasLimitDate(!hasLimitDate)} id="" />
+                    {hasLimitDate && <input type="datetime-local" id="" value={limitDate} onChange={(e => setLimitDate(e.target.value))}/>}
                 </div>
 
                 <div className={style['input-container']}>
