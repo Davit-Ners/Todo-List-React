@@ -36,7 +36,7 @@ export default function Task({ id, name, desc = '', priority, done, failed = fal
                 {dateLimit && <p>A faire pour le {formatLimitDate.toLocaleDateString()} <br /> à {formatLimitDate.toLocaleTimeString().slice(0, 5)}</p>}
             </div>
             <div className={style['task-btn']}>
-                <button onClick={handleDone} disabled={done}>Terminer</button>
+                <button onClick={handleDone} disabled={done || failed}>Terminer</button>
                 <button onClick={handleDelete}>Supprimer</button>
                 {done ? 
                     <button onClick={handleReset}>Remettre en cours</button> : 
