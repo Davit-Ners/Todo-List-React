@@ -42,12 +42,10 @@ export default function TodoList() {
     const onFilter = (filter) => {
         setFilter(filter);
     }
-
     const onModify = (id, name, desc, priority) => {
         setModify(true);
         setModifiedTask({id, newName: name, newDesc: desc, newPriority: priority});
     }
-
     const filteredData = data.filter(task => {
         if (filter === 'done') return task.done;
         if (filter === 'notDone') return !task.done;
@@ -61,6 +59,7 @@ export default function TodoList() {
 
             <div>
                 <h2>Liste des taches</h2>
+
                 {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish}/>)}
             </div>
 
