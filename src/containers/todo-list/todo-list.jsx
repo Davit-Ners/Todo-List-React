@@ -39,6 +39,12 @@ export default function TodoList() {
         setData([...data]);
     }
 
+    const onReset = (id) => {
+        const index = data.findIndex(t => t.id == id);
+        data[index].done = false;
+        setData([...data]);
+    }
+
     const onFilter = (filter) => {
         setFilter(filter);
     }
@@ -55,12 +61,13 @@ export default function TodoList() {
     
     return (
         <div className={style['todo-list']}>
-            <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>
+            <TodoForm onAction={onSubmit}/>
+            {modify && <TodoForm onAction={onSubmit} modify={modify} {...modifiedTask}/>}
 
             <div>
                 <h2>Liste des taches</h2>
 
-                {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish}/>)}
+                {filteredData.map(task => <Task key={task.id} {...task} onModify={onModify} onDelete={onDelete} onFinish={onFinish} onReset={onReset}/>)}
             </div>
 
             <Filter onFilter={onFilter}/>
