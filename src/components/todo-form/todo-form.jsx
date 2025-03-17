@@ -1,14 +1,22 @@
-import { useId, useState } from "react";
+import { useId, useState, useEffect } from "react";
 import style from './todo-form.module.css';
 import clsx from "clsx";
 
-export default function TodoForm({ onAction = () => {} }) {
+export default function TodoForm({ onAction = () => {}, modify = false, id, newName, newDesc, newPriority }) {
     
     const inputId = useId();
     const [ name, setName ] = useState('');
     const [ desc, setDesc ] = useState('');
     const [ priority, setPriority ] = useState('mid');
     const [ must, setMust ] = useState(false);
+
+    useEffect(() => {
+        if (modify) {
+            setName(newName || '');
+            setDesc(newDesc || '');
+            setPriority(newPriority || 'mid');
+        }
+    }, [modify, newName, newDesc, newPriority]);
 
     const sendForm = () => {
         if (!name.trim()) {
@@ -19,12 +27,12 @@ export default function TodoForm({ onAction = () => {} }) {
         setName('');
         setPriority('mid');
         setDesc('');
-        onAction(name, desc, priority);
+        onAction(id, name, desc, priority, modify);
     }
     
     return (
-        <div className={style["todo-form"]}>
-            <h2>Ajouter une nouvelle tache</h2>
+        <div className={clsx(style["todo-form"], modify && style["modify"])}>
+            <h2>{modify ? 'Modifier la tache' : 'Ajouter une nouvelle tache'}</h2>
             <div className={style["form-container"]}>
 
                 <div className={style['input-container']}>
@@ -46,7 +54,7 @@ export default function TodoForm({ onAction = () => {} }) {
                     </select>
                 </div>
 
-                <button onClick={sendForm}>Ajouter</button>
+                <button onClick={sendForm}>{modify ? 'Modifier' : 'Ajouter'}</button>
 
             </div>
         </div>
