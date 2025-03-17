@@ -24,7 +24,7 @@ export default function Task({ id, name, desc = '', priority, done, onDelete = (
             <div className={style['task-btn']}>
                 <button onClick={handleDone} disabled={done}>Terminer</button>
                 <button onClick={handleDelete}>Supprimer</button>
-                <button onClick={handleModify}>Modifier</button>
+                <button onClick={handleModify} disabled={done}>Modifier</button>
             </div>
         </div>
     );
