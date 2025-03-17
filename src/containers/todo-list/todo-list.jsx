@@ -1,48 +1,50 @@
 import { useState } from "react";
 import Task from "../../components/task/task.jsx";
 import TodoForm from "../../components/todo-form/todo-form.jsx";
-import json from '../../data/todo.json'
 import style from './todo-list.module.css';
 import Filter from "../../components/filter/filter.jsx";
 
 export default function TodoList() {
 
-    const [ data, setData ] = useState(json.todo);
-    const [ lastTaskId, setTaskId ] = useState(json.lastId);
+    const [ data, setData ] = useState(JSON.parse(localStorage.getItem('data')) || []);
+    const [ lastTaskId, setTaskId ] = useState(JSON.parse(localStorage.getItem('lastId')) || 0);
     const [ filter, setFilter ] = useState('all');
     const [ modify, setModify ] = useState(false);
     const [ modifiedTask, setModifiedTask ] = useState({newId: '', newName: '', newDesc: '', newPriority: 'mid', newLimitDate: ''});
 
     const onSubmit = (id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate) => {
         if (modify) {
-            setData((value) => 
-                value.map(t => 
-                    t.id === id 
-                        ? { ...t, id, name, desc, priority, dateLimit: new Date(limitDate).getTime() }
-                        : t
-                )
-            );
-            console.log(data);
+            console.log(id, data[0].id);
+            const newData = data.map(t => t.id === id ? { ...t, id, name, desc, priority, dateLimit: hasLimitDate ? new Date(limitDate).getTime() : "" } : t);
+            localStorage.setItem('data', JSON.stringify(newData));
+            setData(newData);
             setModify(false);
             return;
         }
+        localStorage.setItem('lastId', lastTaskId + 1);
         setTaskId((id) => id + 1);
-        setData(val => [...val, { id: lastTaskId + 1, name, desc, priority, done: false, createdAt, dateLimit: hasLimitDate ? new Date(limitDate).getTime() : "" }]);
+        localStorage.setItem('data', JSON.stringify([{ id: lastTaskId + 1, name, desc, priority, done: false, createdAt, dateLimit: hasLimitDate ? new Date(limitDate).getTime() : "" }, ...data]));
+        setData(JSON.parse(localStorage.getItem('data')));
     }
 
     const onDelete = (id) => {
-        setData(val => val.filter(t => t.id != id));
+        const index = data.findIndex(t => t.id == id);
+        data.splice(index, 1);
+        localStorage.setItem('data', JSON.stringify(data));
+        setData([...data]);
     }
 
     const onFinish = (id) => {
         const index = data.findIndex(t => t.id == id);
         data[index].done = true;
+        localStorage.setItem('data', JSON.stringify(data));
         setData([...data]);
     }
 
     const onReset = (id) => {
         const index = data.findIndex(t => t.id == id);
         data[index].done = false;
+        localStorage.setItem('data', JSON.stringify(data));
         setData([...data]);
     }
 

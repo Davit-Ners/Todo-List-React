@@ -34,7 +34,7 @@ export default function TodoForm({ onAction = () => {}, modify = false, id, newN
         setName('');
         setPriority('mid');
         setDesc('');
-        console.log(limitDate);
+        console.log(hasLimitDate);
         onAction(id, name, desc, priority, modify, createdAt, limitDate, hasLimitDate);
     }
     
