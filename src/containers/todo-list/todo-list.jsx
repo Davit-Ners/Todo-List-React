@@ -9,6 +9,7 @@ export default function TodoList() {
 
     const [ data, setData ] = useState(json.todo);
     const [ lastTaskId, setTaskId ] = useState(json.lastId);
+    const [ filter, setFilter ] = useState('all');
 
     const onSubmit = (name, desc, priority) => {
         setTaskId(lastTaskId + 1);
@@ -16,8 +17,7 @@ export default function TodoList() {
     }
 
     const onDelete = (id) => {
-        const index = data.findIndex(t => t.id == id);
-        setData(val => val.toSpliced(index, 1));
+        setData(val => val.filter(t => t.id != id));
     }
 
     const onFinish = (id) => {
@@ -25,6 +25,17 @@ export default function TodoList() {
         data[index].done = true;
         setData([...data]);
     }
+
+    const onFilter = (filter) => {
+        setFilter(filter);
+    }
+
+    const filteredData = data.filter(task => {
+        if (filter === 'done') return task.done;
+        if (filter === 'notDone') return !task.done;
+        if (filter === 'urgent') return task.priority === 'high';
+        return true;
+    });
     
     return (
         <div className={style['todo-list']}>
@@ -32,10 +43,10 @@ export default function TodoList() {
 
             <div>
                 <h2>Liste des taches</h2>
-                {data.map(task => <Task key={task.id} {...task} onDelete={onDelete} onFinish={onFinish}/>)}
+                {filteredData.map(task => <Task key={task.id} {...task} onDelete={onDelete} onFinish={onFinish}/>)}
             </div>
 
-            <Filter data={data}/>
+            <Filter onFilter={onFilter}/>
         </div>
     );
 };
